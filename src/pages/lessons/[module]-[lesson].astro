@@ -1,0 +1,26 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/header/Header.astro";
+import Main from "@/components/main/Main.astro";
+import { getLessons } from "@/utils";
+
+export async function getStaticPaths() {
+    const lessons = getLessons();
+    return lessons.map(function (l) {
+        return {
+            params: { module: l.module, lesson: l.slug },
+            props: l,
+        };
+    });
+}
+
+const { LessonComponent, title } = Astro.props;
+---
+
+<Layout>
+    <Header />
+    <Main>
+        <p>{title}</p>
+        <LessonComponent />
+    </Main>
+</Layout>

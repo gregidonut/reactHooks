@@ -1,0 +1,39 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/header/Header.astro";
+import Main from "@/components/main/Main.astro";
+
+import type { Lesson } from "@/utils";
+import { modules, getLessons } from "@/utils";
+
+const lessons = getLessons();
+---
+
+<Layout>
+    <Header />
+    <Main>
+        <ol>
+            {
+                Array.from(modules).map(function (mName: string) {
+                    return (
+                        <li>
+                            <h3>{mName}</h3>
+                            <ol>
+                                {lessons.map(function (l: Lesson) {
+                                    if (l.module !== mName) {
+                                        return;
+                                    }
+                                    return (
+                                        <li>
+                                            <a href={l.url}>{l.title}</a>
+                                        </li>
+                                    );
+                                })}
+                            </ol>
+                        </li>
+                    );
+                })
+            }
+        </ol>
+    </Main>
+</Layout>
