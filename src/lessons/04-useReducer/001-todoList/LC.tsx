@@ -77,8 +77,9 @@ function LessonComponent(): React.JSX.Element {
                                         : "none",
                                 }}
                             >
-                                {t.body}
+                                <p data-cy="todo-body">{t.body}</p>
                                 <button
+                                    data-cy="completed-toggle"
                                     onClick={() =>
                                         dispatch({
                                             type: "toggle",
@@ -89,6 +90,7 @@ function LessonComponent(): React.JSX.Element {
                                     toggle completed
                                 </button>
                                 <button
+                                    data-cy="delete-btn"
                                     onClick={() =>
                                         dispatch({
                                             type: "delete",

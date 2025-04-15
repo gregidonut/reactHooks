@@ -13,5 +13,19 @@ describe("template spec", () => {
         cy.get("@inputField").clear().type("tanginamo");
         cy.get("@addBtn").click();
         cy.get("@todoListUL").children().should("have.length", 2);
+        cy.get("@todoListUL")
+            .children()
+            .last()
+            .as("lastTodoItem")
+            .should("have.css", "text-decoration")
+            .and("includes", "none");
+        cy.get(':nth-child(2) > [data-cy="todo-body"]').contains("tanginamo");
+        cy.get("@lastTodoItem").find('[data-cy="completed-toggle"]').click();
+        cy.get("@lastTodoItem")
+            .should("have.css", "text-decoration")
+            .and("includes", "line-through");
+
+        cy.get("@lastTodoItem").find('[data-cy="delete-btn"]').click();
+        cy.get("@todoListUL").children().should("have.length", 1);
     });
 });
