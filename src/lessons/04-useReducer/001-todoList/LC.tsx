@@ -35,11 +35,11 @@ function reducer(state: Todo[], action: Action): Todo[] {
                 },
             ];
         case "toggle":
-            return state.map((todo) =>
-                todo.id === action.id
+            return state.map(function (todo): Todo {
+                return todo.id === action.id
                     ? { ...todo, completed: !todo.completed }
-                    : todo,
-            );
+                    : todo;
+            });
         case "delete":
             return state.filter((todo) => todo.id !== action.id);
         default:
