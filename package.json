@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@astrojs/react": "^4.2.4",
+    "@tanstack/react-form": "^1.6.3",
     "@types/react": "^19.1.2",
     "@types/react-dom": "^19.1.2",
     "@typescript-eslint/parser": "^8.30.1",
