@@ -1,4 +1,4 @@
-import React, { useReducer } from "react";
+import React, { useReducer, type FormEvent, type ChangeEvent } from "react";
 
 type Form = { [fieldName: string]: string };
 
@@ -26,9 +26,52 @@ function reducer(state: Form, action: Action): Form {
 }
 
 function LessonComponent(): React.JSX.Element {
-    const initialState = { name: "", email: "", password: "" };
+    const initialState = {
+        name: "",
+        email: "",
+        age: "",
+        favoriteFood: "",
+        password: "",
+    };
     const [state, dispatch] = useReducer(reducer, initialState);
-    return <></>;
+
+    function handleSubmit(e: FormEvent<HTMLFormElement>) {
+        e.preventDefault();
+        console.log("~state:", JSON.stringify(state, null, 4));
+    }
+
+    return (
+        <>
+            <form onSubmit={handleSubmit}>
+                {Object.keys(initialState).map(function (
+                    k: string,
+                    i: number,
+                ): React.JSX.Element {
+                    return (
+                        <p key={i}>
+                            <label htmlFor={k}>{k}</label>
+                            <input
+                                name={k}
+                                id={k}
+                                type={k === "password" ? "password" : "text"}
+                                value={state[k] ?? ""}
+                                onChange={function (
+                                    e: ChangeEvent<HTMLInputElement>,
+                                ) {
+                                    dispatch({
+                                        type: "updateField",
+                                        field: k,
+                                        value: e.target.value,
+                                    });
+                                }}
+                            />
+                        </p>
+                    );
+                })}
+                <button type="submit">submit</button>
+            </form>
+        </>
+    );
 }
 
 export default LessonComponent;
